@@ -1,0 +1,21 @@
+{
+  "name": "translate-srt",
+  "version": "1.0.0",
+  "description": "Translate Subtitle using Google Translate",
+  "main": "run.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leavingme/translate-srt.git"
+  },
+  "author": "leavingme",
+  "bugs": {
+    "url": "https://github.com/leavingme/translate-srt/issues"
+  },
+  "homepage": "https://github.com/leavingme/translate-srt#readme",
+  "devDependencies": {
+    "google-translate-api": "^2.2.2"
+  }
+}
