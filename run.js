@@ -1,3 +1,5 @@
+"use strict";
+
 const fs = require('fs');
 const translate = require('google-translate-api');
 
@@ -17,23 +19,22 @@ fs.readdir(base_path, (err, files) => {
 
             var file_chs = createFilenameLang(file, 'CHS');
             var finalFilename = `${base_path}\\${file_chs}`;
-            console.log(finalFilename);
+            fs.unlinkSync(finalFilename);
 
-            lines = data.trim().split('\n\n');
+            var lines = data.trim().split('\n\n');
             for (var i = 0; i != lines.length; i++) {
                 var line = lines[i];
                 var parts = line.split('\n')
                 var subtitle_number = parts[0];
                 var subtitle_time = parts[1];
                 var subtitle_text = parts.slice(2);
-                // console.log(subtitle_text);
+
+                console.log(subtitle_number);
 
                 var text = subtitle_text.join('\n');
                 var translate_text = await translatePromise(text, subtitle_number);
-                // console.log(file_chs);
-
-                var section = `${file_chs}\n${subtitle_number}\n${subtitle_time}\n${text}\n${translate_text}\n\n`;
-                console.log(section);
+                
+                var section = `${subtitle_number}\n${subtitle_time}\n${text}\n${translate_text}\n\n`;
                 fs.appendFileSync(finalFilename, section);
             }
         });
@@ -51,7 +52,8 @@ var translatePromise = function (text, subtitle_number) {
         translate(text, { from: 'en', to: 'zh-CN' }).then(res => {
             resolve(res.text);
         }).catch(err => {
-            reject(err);
+            console.log(err);
+            reject();
         });
     });
 
